@@ -10,6 +10,10 @@ import (
 )
 
 var _ = Describe("Create", func() {
+	AfterEach(func() {
+		cleanupContainers()
+	})
+
 	Measure("must take less than N seconds for each container", func(b Benchmarker) {
 		waitGroup := sync.WaitGroup{}
 
@@ -20,12 +24,23 @@ var _ = Describe("Create", func() {
 				defer waitGroup.Done()
 				defer GinkgoRecover()
 
-				createTime := b.Time("create", func() {
-					_, err := gardenClient.Create(garden.ContainerSpec{})
-					Expect(err).NotTo(HaveOccurred())
-				})
+				for j := 0; j < 40; j++ {
+					createTime := b.Time("create", func() {
+						_, err := gardenClient.Create(
+							garden.ContainerSpec{
+								Limits: garden.Limits{
+									Disk: garden.DiskLimits{
+										ByteHard: 2 * 1024 * 1024 * 1024,
+									},
+								},
+							},
+						)
+						Expect(err).NotTo(HaveOccurred())
+					})
 
-				Expect(createTime.Seconds()).To(BeNumerically("<", 0.1))
+					Expect(createTime.Seconds()).To(BeNumerically("<", 1.2))
+				}
+
 			}()
 		}
 

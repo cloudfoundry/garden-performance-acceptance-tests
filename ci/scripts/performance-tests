@@ -1,0 +1,10 @@
+#!/bin/bash
+# vim: set ft=sh
+
+set -e -x
+
+export GOPATH=$PWD
+export PATH=$PWD/bin:$PATH
+
+cd src/code.cloudfoundry.org/garden-performance-acceptance-tests
+ginkgo -nodes=1 "$@"

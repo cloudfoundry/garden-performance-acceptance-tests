@@ -1,7 +1,18 @@
 hash: d301dae9af056334bf196d14eef3be94c2eaff3ec792896face4535cc50df11d
-updated: 2016-11-24T11:32:46.775038046Z
+updated: 2016-11-24T15:36:31.742052274Z
 imports: []
 testImports:
+- name: code.cloudfoundry.org/garden
+  version: e328e6698f8e101158e9c498f0cebe018846f594
+  subpackages:
+  - client
+  - client/connection
+  - routes
+  - transport
+- name: code.cloudfoundry.org/lager
+  version: 6cfe365fb6bb84343f0034b4a53cd250d173b61f
+- name: github.com/bmizerany/pat
+  version: c068ca2f0aacee5ac3681d68e4d0a003b7d1fd2c
 - name: github.com/onsi/ginkgo
   version: 00054c0bb96fc880d4e0be1b90937fad438c5290
   subpackages:
@@ -35,6 +46,8 @@ testImports:
   - matchers/support/goraph/node
   - matchers/support/goraph/util
   - types
+- name: github.com/tedsuo/rata
+  version: 0649c23705dfb45a9693b668c4fc1c0666f485d9
 - name: golang.org/x/sys
   version: 30237cf4eefd639b184d1f2cb77a581ea0be8947
   subpackages:
