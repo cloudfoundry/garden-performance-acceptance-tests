@@ -38,7 +38,7 @@ var _ = Describe("Create", func() {
 						Expect(err).NotTo(HaveOccurred())
 					})
 
-					Expect(createTime.Seconds()).To(BeNumerically("<", 1.2))
+					Expect(createTime.Seconds()).To(BeNumerically("<", 1.5))
 				}
 
 			}()
