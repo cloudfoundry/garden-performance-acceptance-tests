@@ -14,7 +14,7 @@ var _ = Describe("Create", func() {
 		cleanupContainers()
 	})
 
-	Measure("must take less than N seconds for each container", func(b Benchmarker) {
+	Measure("must take less than 1.5 seconds for each container", func(b Benchmarker) {
 		waitGroup := sync.WaitGroup{}
 
 		for i := 0; i < 5; i++ {
