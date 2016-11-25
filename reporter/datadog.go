@@ -63,7 +63,19 @@ func (r *DataDogReporter) SpecDidComplete(specSummary *types.SpecSummary) {
 			r.logger.Info("sending-metrics-to-datadog", lager.Data{"metric": info.MetricName, "prefix": r.metricPrefix})
 			err := r.dataDogClient.PostMetrics([]datadog.Metric{
 				{
-					Metric: fmt.Sprintf("%s.%s", r.metricPrefix, info.MetricName),
+					Metric: fmt.Sprintf("%s.%s-slowest", r.metricPrefix, info.MetricName),
+					Points: []datadog.DataPoint{
+						{timestamp, measurement.Largest},
+					},
+				},
+				{
+					Metric: fmt.Sprintf("%s.%s-fastest", r.metricPrefix, info.MetricName),
+					Points: []datadog.DataPoint{
+						{timestamp, measurement.Smallest},
+					},
+				},
+				{
+					Metric: fmt.Sprintf("%s.%s-average", r.metricPrefix, info.MetricName),
 					Points: []datadog.DataPoint{
 						{timestamp, measurement.Average},
 					},
