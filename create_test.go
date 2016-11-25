@@ -7,6 +7,11 @@ import (
 	"sync"
 
 	"code.cloudfoundry.org/garden"
+	"code.cloudfoundry.org/garden-performance-acceptance-tests/reporter"
+)
+
+const (
+	ContainerCreation = "ContainerCreation"
 )
 
 var _ = Describe("Create", func() {
@@ -36,7 +41,11 @@ var _ = Describe("Create", func() {
 							},
 						)
 						Expect(err).NotTo(HaveOccurred())
-					})
+					},
+						reporter.ReporterInfo{
+							MetricName: ContainerCreation,
+						},
+					)
 
 					Expect(createTime.Seconds()).To(BeNumerically("<", 1.5))
 				}

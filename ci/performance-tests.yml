@@ -13,6 +13,9 @@ inputs:
 
 params:
   GARDEN_ADDRESS: ""
+  DATADOG_API_KEY: ""
+  DATADOG_APP_KEY: ""
+  DATADOG_METRIC_PREFIX: ""
 
 run:
   path: src/code.cloudfoundry.org/garden-performance-acceptance-tests/ci/scripts/performance-tests
