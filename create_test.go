@@ -7,6 +7,7 @@ import (
 	"sync"
 
 	"code.cloudfoundry.org/garden"
+	"code.cloudfoundry.org/garden-performance-acceptance-tests/measurements"
 	"code.cloudfoundry.org/garden-performance-acceptance-tests/reporter"
 )
 
@@ -20,6 +21,7 @@ var _ = Describe("Create", func() {
 	})
 
 	Measure("must take less than 1.5 seconds for each container", func(b Benchmarker) {
+		createTimes := measurements.Measurements{}
 		waitGroup := sync.WaitGroup{}
 
 		for i := 0; i < 5; i++ {
@@ -35,7 +37,7 @@ var _ = Describe("Create", func() {
 							garden.ContainerSpec{
 								Limits: garden.Limits{
 									Disk: garden.DiskLimits{
-										ByteHard: 2 * 1024 * 1024 * 1024,
+										ByteHard: 1024 * 1024,
 									},
 								},
 							},
@@ -46,13 +48,17 @@ var _ = Describe("Create", func() {
 							MetricName: ContainerCreation,
 						},
 					)
-
-					Expect(createTime.Seconds()).To(BeNumerically("<", 1.5))
+					createTimes = append(createTimes, createTime.Seconds())
 				}
 
 			}()
 		}
 
 		waitGroup.Wait()
+
+		averageCreateTime, err := createTimes.Average()
+		Expect(err).NotTo(HaveOccurred())
+
+		Expect(averageCreateTime).To(BeNumerically("<", 1.5))
 	}, 1)
 })
