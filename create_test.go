@@ -59,6 +59,8 @@ var _ = Describe("Create", func() {
 		averageCreateTime, err := createTimes.Average()
 		Expect(err).NotTo(HaveOccurred())
 
-		Expect(averageCreateTime).To(BeNumerically("<", 1.5))
+		Conditionally(func() {
+			Expect(averageCreateTime).To(BeNumerically("<", 1.5))
+		}, !ignorePerfExpectations)
 	}, 1)
 })

@@ -16,7 +16,8 @@ import (
 )
 
 var (
-	gardenClient garden.Client
+	gardenClient           garden.Client
+	ignorePerfExpectations bool // allows us to report metrics even when an expectation fails
 )
 
 var _ = BeforeSuite(func() {
@@ -36,6 +37,10 @@ func TestGardenPerformanceAcceptanceTests(t *testing.T) {
 	metricPrefix := os.Getenv("DATADOG_METRIC_PREFIX")
 	if metricPrefix == "" {
 		metricPrefix = "gpats"
+	}
+
+	if os.Getenv("IGNORE_PERF_EXPECTATIONS") != "" {
+		ignorePerfExpectations = true
 	}
 
 	logger := lager.NewLogger("garden-performance-acceptance-tests")
@@ -58,5 +63,11 @@ func cleanupContainers() {
 
 	for _, container := range containers {
 		Expect(gardenClient.Destroy(container.Handle())).To(Succeed())
+	}
+}
+
+func Conditionally(expectation func(), condition bool) {
+	if condition {
+		expectation()
 	}
 }

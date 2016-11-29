@@ -12,10 +12,24 @@ In the future, should we wish to send metrics to other services, we can extend t
 
 Note that the reporter package used here is based on this [reporter package](https://github.com/cloudfoundry/benchmarkbbs/tree/master/reporter) from the [cloudfoundry/benchmarkbbs](https://github.com/cloudfoundry/benchmarkbbs) repo.
 
+## Conditionally Expect Metrics
+
+This suite is used both to gate releases via expectations on performance but also to provide metrics when thresholds are succeeded.
+
+To achieve this, metrics related expectations are wrapped in Conditionally() functions, to ensure they only fail tests when required.
+
+To turn off metrics related expectations, set an environment variable: IGNORE_PERF_EXPECTATIONS=true.
+
 ## Usage
 
 ```
 DATADOG_API_KEY="x" DATADOG_APP_KEY="x" DATADOG_METRIC_PREFIX="x" GARDEN_ADDRESS="127.0.0.1:7777" ginkgo
+```
+
+To turn off metrics related expectations:
+
+```
+DATADOG_API_KEY="x" DATADOG_APP_KEY="x" DATADOG_METRIC_PREFIX="x" GARDEN_ADDRESS="127.0.0.1:7777" IGNORE_PERF_EXPECTATIONS=true ginkgo
 ```
 
 **NB**: This test suite will destroy ALL containers on the Garden server as part of the run. You have been warned.

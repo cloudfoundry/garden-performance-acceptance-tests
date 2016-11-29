@@ -42,23 +42,6 @@ func (r *DataDogReporter) SpecWillRun(specSummary *types.SpecSummary) {
 }
 
 func (r *DataDogReporter) SpecDidComplete(specSummary *types.SpecSummary) {
-	if specSummary.Failed() {
-		eventTitle := fmt.Sprintf("%s-test-failure", r.metricPrefix)
-		eventText := fmt.Sprintf("%s - %s", specSummary.ComponentTexts[1], specSummary.ComponentTexts[2])
-		eventTags := []string{r.metricPrefix}
-
-		failEvent := &datadog.Event{
-			Title: eventTitle,
-			Text:  eventText,
-			Tags:  eventTags,
-		}
-
-		_, err := r.dataDogClient.PostEvent(failEvent)
-		if err != nil {
-			r.logger.Error("failed-sending-events-to-datadog", err, lager.Data{"metric": "failevent", "prefix": r.metricPrefix})
-		}
-	}
-
 	if specSummary.Passed() && specSummary.IsMeasurement {
 		for _, measurement := range specSummary.Measurements {
 			if measurement.Info == nil {
