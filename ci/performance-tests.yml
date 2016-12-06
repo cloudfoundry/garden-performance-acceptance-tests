@@ -13,6 +13,7 @@ inputs:
 
 params:
   GARDEN_ADDRESS: ""
+  GARDEN_PORT: ""
   DATADOG_API_KEY: ""
   DATADOG_APP_KEY: ""
   DATADOG_METRIC_PREFIX: ""

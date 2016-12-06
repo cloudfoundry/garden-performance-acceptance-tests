@@ -1,6 +1,8 @@
 package garden_performance_acceptance_tests_test
 
 import (
+	"fmt"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -23,9 +25,13 @@ var (
 var _ = BeforeSuite(func() {
 	gardenHost := os.Getenv("GARDEN_ADDRESS")
 	if gardenHost == "" {
-		gardenHost = "127.0.0.1:7777"
+		gardenHost = "127.0.0.1"
 	}
-	gardenClient = client.New(connection.New("tcp", gardenHost))
+	gardenPort := os.Getenv("GARDEN_PORT")
+	if gardenPort == "" {
+		gardenPort = "7777"
+	}
+	gardenClient = client.New(connection.New("tcp", fmt.Sprintf("%s:%s", gardenHost, gardenPort)))
 
 	// ensure a 'clean' starting state
 	cleanupContainers()
