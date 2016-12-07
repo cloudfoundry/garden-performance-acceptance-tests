@@ -18,6 +18,7 @@ params:
   DATADOG_APP_KEY: ""
   DATADOG_METRIC_PREFIX: ""
   IGNORE_PERF_EXPECTATIONS: ""
+  PREHEAT_SERVER: ""
 
 run:
   path: src/code.cloudfoundry.org/garden-performance-acceptance-tests/ci/scripts/performance-tests

@@ -1,13 +1,14 @@
 package garden_performance_acceptance_tests_test
 
 import (
-	"fmt"
-
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
+	"fmt"
 	"os"
+	"sync"
 	"testing"
+	"time"
 
 	"code.cloudfoundry.org/garden"
 	"code.cloudfoundry.org/garden-performance-acceptance-tests/reporter"
@@ -32,6 +33,10 @@ var _ = BeforeSuite(func() {
 		gardenPort = "7777"
 	}
 	gardenClient = client.New(connection.New("tcp", fmt.Sprintf("%s:%s", gardenHost, gardenPort)))
+
+	if os.Getenv("PREHEAT_SERVER") != "" {
+		preheatServer()
+	}
 
 	// ensure a 'clean' starting state
 	cleanupContainers()
@@ -67,13 +72,82 @@ func cleanupContainers() {
 	containers, err := gardenClient.Containers(garden.Properties{})
 	Expect(err).NotTo(HaveOccurred())
 
-	for _, container := range containers {
-		Expect(gardenClient.Destroy(container.Handle())).To(Succeed())
-	}
+	// TODO: tidyup
+	count := len(containers)
+
+	batchSize := count / 2
+
+	batchA := containers[:batchSize]
+	batchB := containers[batchSize:]
+
+	waitGroup := sync.WaitGroup{}
+	waitGroup.Add(2)
+
+	go func() {
+		defer waitGroup.Done()
+		for _, container := range batchA {
+			Expect(gardenClient.Destroy(container.Handle())).To(Succeed())
+		}
+	}()
+
+	go func() {
+		defer waitGroup.Done()
+		for _, container := range batchB {
+			Expect(gardenClient.Destroy(container.Handle())).To(Succeed())
+		}
+	}()
+
+	waitGroup.Wait()
 }
 
 func Conditionally(expectation func(), condition bool) {
 	if condition {
 		expectation()
 	}
+}
+
+// simulate a long-running guardian process via many, many Creates and Destroys
+func preheatServer() {
+	total := 100 // TODO: bump to 30000
+	batchSize := 10
+	numGoroutines := 5
+	count := 0
+	countPerGoroutine := batchSize / numGoroutines
+
+	waitGroup := sync.WaitGroup{}
+
+	t := time.Now()
+	fmt.Printf("Preheating the server (this will take a while)\n")
+
+	for count < total {
+		for i := 0; i < numGoroutines; i++ {
+			waitGroup.Add(1)
+
+			go func() {
+				defer waitGroup.Done()
+
+				for j := 0; j < countPerGoroutine; j++ {
+					_, err := gardenClient.Create(
+						garden.ContainerSpec{
+							Limits: garden.Limits{
+								Disk: garden.DiskLimits{
+									ByteHard: 1024 * 1024,
+								},
+							},
+						},
+					)
+					Expect(err).NotTo(HaveOccurred())
+				}
+			}()
+		}
+
+		waitGroup.Wait()
+
+		cleanupContainers()
+		count += batchSize
+		fmt.Printf("\tBatch complete - %d/%d\n", count, total)
+	}
+
+	preheatDuration := time.Since(t)
+	fmt.Printf("Preheating complete - took %s\n\n", preheatDuration)
 }
