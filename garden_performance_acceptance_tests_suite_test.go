@@ -1,6 +1,8 @@
 package garden_performance_acceptance_tests_test
 
 import (
+	"strconv"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -35,7 +37,12 @@ var _ = BeforeSuite(func() {
 	gardenClient = client.New(connection.New("tcp", fmt.Sprintf("%s:%s", gardenHost, gardenPort)))
 
 	if os.Getenv("PREHEAT_SERVER") != "" {
-		preheatServer()
+		var maxPreheat int = 30000
+
+		if max, err := strconv.Atoi(os.Getenv("PREHEAT_SERVER")); err == nil {
+			maxPreheat = max
+		}
+		preheatServer(maxPreheat)
 	}
 
 	// ensure a 'clean' starting state
@@ -84,6 +91,7 @@ func cleanupContainers() {
 	waitGroup.Add(2)
 
 	go func() {
+		defer GinkgoRecover()
 		defer waitGroup.Done()
 		for _, container := range batchA {
 			Expect(gardenClient.Destroy(container.Handle())).To(Succeed())
@@ -91,6 +99,7 @@ func cleanupContainers() {
 	}()
 
 	go func() {
+		defer GinkgoRecover()
 		defer waitGroup.Done()
 		for _, container := range batchB {
 			Expect(gardenClient.Destroy(container.Handle())).To(Succeed())
@@ -107,8 +116,7 @@ func Conditionally(expectation func(), condition bool) {
 }
 
 // simulate a long-running guardian process via many, many Creates and Destroys
-func preheatServer() {
-	total := 100 // TODO: bump to 30000
+func preheatServer(total int) {
 	batchSize := 10
 	numGoroutines := 5
 	count := 0
@@ -124,6 +132,7 @@ func preheatServer() {
 			waitGroup.Add(1)
 
 			go func() {
+				defer GinkgoRecover()
 				defer waitGroup.Done()
 
 				for j := 0; j < countPerGoroutine; j++ {
