@@ -13,6 +13,7 @@ inputs:
 
 outputs:
 - name: stats
+  path: src/code.cloudfoundry.org/garden-performance-acceptance-tests/stats
 
 params:
   GARDEN_ADDRESS: ""
