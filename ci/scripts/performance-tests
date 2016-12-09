@@ -7,4 +7,6 @@ export GOPATH=$PWD
 export PATH=$PWD/bin:$PATH
 
 cd src/code.cloudfoundry.org/garden-performance-acceptance-tests
-ginkgo -nodes=1 "$@"
+ginkgo -nodes=1 "$@" | tee output.txt
+
+tail -n 15 output.txt | grep Time > stats/stats.txt

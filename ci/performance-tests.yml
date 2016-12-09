@@ -11,6 +11,9 @@ inputs:
 - name: gpats-master
   path: src/code.cloudfoundry.org/garden-performance-acceptance-tests
 
+outputs:
+- name: stats
+
 params:
   GARDEN_ADDRESS: ""
   GARDEN_PORT: ""
