@@ -136,16 +136,17 @@ func preheatServer(total int) {
 				defer waitGroup.Done()
 
 				for j := 0; j < countPerGoroutine; j++ {
-					_, err := gardenClient.Create(
+					c, err := gardenClient.Create(
 						garden.ContainerSpec{
-							Limits: garden.Limits{
-								Disk: garden.DiskLimits{
-									ByteHard: 1024 * 1024,
-								},
-							},
+						// Limits: garden.Limits{
+						// 	Disk: garden.DiskLimits{
+						// 		ByteHard: 1024 * 1024,
+						// 	},
+						// },
 						},
 					)
 					Expect(err).NotTo(HaveOccurred())
+					fmt.Printf("Created %s\n", c.Handle())
 				}
 			}()
 		}

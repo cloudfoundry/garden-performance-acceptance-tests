@@ -31,15 +31,15 @@ var _ = Describe("Create", func() {
 				defer waitGroup.Done()
 				defer GinkgoRecover()
 
-				for j := 0; j < 40; j++ {
+				for j := 0; j < 1; j++ {
 					createTime := b.Time("create", func() {
 						_, err := gardenClient.Create(
 							garden.ContainerSpec{
-								Limits: garden.Limits{
-									Disk: garden.DiskLimits{
-										ByteHard: 1024 * 1024,
-									},
-								},
+							// Limits: garden.Limits{
+							// 	Disk: garden.DiskLimits{
+							// 		ByteHard: 1024 * 1024,
+							// 	},
+							// },
 							},
 						)
 						Expect(err).NotTo(HaveOccurred())
