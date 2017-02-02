@@ -2,6 +2,7 @@
 # vim: set ft=sh
 
 set -e -x
+set -o pipefail
 
 export GOPATH=$PWD
 export PATH=$PWD/bin:$PATH
