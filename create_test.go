@@ -38,6 +38,7 @@ var _ = Describe("Create", func() {
 								Limits: garden.Limits{
 									Disk: garden.DiskLimits{
 										ByteHard: 1024 * 1024,
+										Scope:    garden.DiskLimitScopeExclusive,
 									},
 								},
 							},
