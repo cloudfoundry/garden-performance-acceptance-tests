@@ -75,10 +75,16 @@ func (h *hijackable) Hijack(handler string, body io.Reader, params rata.Params, 
 
 		errRespBytes, err := ioutil.ReadAll(httpResp.Body)
 		if err != nil {
-			return nil, nil, fmt.Errorf("Backend error: Exit status: %d, error reading response body: %s", httpResp.StatusCode, err)
+			return nil, nil, fmt.Errorf("Backend error: Exit status: %d, Body: %s, error reading response body: %s", httpResp.StatusCode, string(errRespBytes), err)
 		}
 
-		return nil, nil, fmt.Errorf("Backend error: Exit status: %d, message: %s", httpResp.StatusCode, errRespBytes)
+		var result garden.Error
+		err = json.Unmarshal(errRespBytes, &result)
+		if err != nil {
+			return nil, nil, fmt.Errorf("Backend error: Exit status: %d, Body: %s, error reading response body: %s", httpResp.StatusCode, string(errRespBytes), err)
+		}
+
+		return nil, nil, result.Err
 	}
 
 	hijackedConn, hijackedResponseReader := client.Hijack()

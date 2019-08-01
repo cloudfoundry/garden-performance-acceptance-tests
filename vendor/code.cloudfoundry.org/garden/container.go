@@ -54,13 +54,15 @@ type Container interface {
 	CurrentMemoryLimits() (MemoryLimits, error)
 
 	// Map a port on the host to a port in the container so that traffic to the
-	// host port is forwarded to the container port.
+	// host port is forwarded to the container port. This is deprecated in
+	// favour of passing NetIn configuration in the ContainerSpec at creation
+	// time.
 	//
 	// If a host port is not given, a port will be acquired from the server's port
 	// pool.
 	//
 	// If a container port is not given, the port will be the same as the
-	// container port.
+	// host port.
 	//
 	// The resulting host and container ports are returned in that order.
 	//
@@ -68,7 +70,8 @@ type Container interface {
 	// * When no port can be acquired from the server's port pool.
 	NetIn(hostPort, containerPort uint32) (uint32, uint32, error)
 
-	// Whitelist outbound network traffic.
+	// Whitelist outbound network traffic. This is deprecated in favour of passing
+	// NetOut configuration in the ContainerSpec at creation time.
 	//
 	// If the configuration directive deny_networks is not used,
 	// all networks are already whitelisted and this command is effectively a no-op.
@@ -80,7 +83,8 @@ type Container interface {
 	// * An error is returned if the NetOut call fails.
 	NetOut(netOutRule NetOutRule) error
 
-	// A Bulk call for NetOut.
+	// A Bulk call for NetOut. This is deprecated in favour of passing
+	// NetOut configuration in the ContainerSpec at creation time.
 	//
 	// Errors:
 	// * An error is returned if any of the NetOut calls fail.
@@ -130,6 +134,9 @@ type Container interface {
 
 // ProcessSpec contains parameters for running a script inside a container.
 type ProcessSpec struct {
+	// ID for the process. If empty, an ID will be generated.
+	ID string `json:"id,omitempty"`
+
 	// Path to command to execute.
 	Path string `json:"path,omitempty"`
 
@@ -143,13 +150,25 @@ type ProcessSpec struct {
 	Dir string `json:"dir,omitempty"`
 
 	// The name of a user in the container to run the process as.
+	// This must either be a username, or uid:gid.
 	User string `json:"user,omitempty"`
 
 	// Resource limits
 	Limits ResourceLimits `json:"rlimits,omitempty"`
 
+	// Limits to be applied to the newly created process
+	OverrideContainerLimits *ProcessLimits `json:"limits,omitempty"`
+
 	// Execute with a TTY for stdio.
 	TTY *TTYSpec `json:"tty,omitempty"`
+
+	// Execute process in own root filesystem, different from the other processes
+	// in the container.
+	Image ImageRef `json:"image,omitempty"`
+
+	// Bind mounts to be applied to the process's filesystem
+	// An error is returned if ProcessSpec.Image is not also set.
+	BindMounts []BindMount `json:"bind_mounts,omitempty"`
 }
 
 type TTYSpec struct {
@@ -218,10 +237,13 @@ type ContainerInfoEntry struct {
 }
 
 type Metrics struct {
-	MemoryStat  ContainerMemoryStat
-	CPUStat     ContainerCPUStat
-	DiskStat    ContainerDiskStat
-	NetworkStat ContainerNetworkStat
+	MemoryStat     ContainerMemoryStat
+	CPUStat        ContainerCPUStat
+	DiskStat       ContainerDiskStat
+	NetworkStat    ContainerNetworkStat
+	PidStat        ContainerPidStat
+	Age            time.Duration
+	CPUEntitlement uint64
 }
 
 type ContainerMetricsEntry struct {
@@ -269,6 +291,11 @@ type ContainerCPUStat struct {
 	System uint64
 }
 
+type ContainerPidStat struct {
+	Current uint64
+	Max     uint64
+}
+
 type ContainerDiskStat struct {
 	TotalBytesUsed      uint64
 	TotalInodesUsed     uint64
@@ -293,6 +320,11 @@ type BandwidthLimits struct {
 	BurstRateInBytesPerSecond uint64 `json:"burst,omitempty"`
 }
 
+type ProcessLimits struct {
+	CPU    CPULimits    `json:"cpu_limits,omitempty"`
+	Memory MemoryLimits `json:"memory_limits,omitempty"`
+}
+
 type DiskLimits struct {
 	InodeSoft uint64 `json:"inode_soft,omitempty"`
 	InodeHard uint64 `json:"inode_hard,omitempty"`
@@ -309,7 +341,16 @@ type MemoryLimits struct {
 }
 
 type CPULimits struct {
+	Weight uint64 `json:"weight,omitempty"`
+	// Deprecated: Use Weight instead.
 	LimitInShares uint64 `json:"limit_in_shares,omitempty"`
+}
+
+type PidLimits struct {
+	// Limits the number of pids a container may create before new forks or clones are disallowed to processes in the container.
+	// Note: this may only be enforced when a process attempts to fork, so it does not guarantee that a new container.Run(ProcessSpec)
+	// will not succeed even if the limit has been exceeded, but the process will not be able to spawn further processes or threads.
+	Max uint64 `json:"max,omitempty"`
 }
 
 // Resource limits.

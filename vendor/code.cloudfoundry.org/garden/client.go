@@ -72,7 +72,10 @@ type ContainerSpec struct {
 	// subject to the globally configured grace time.
 	GraceTime time.Duration `json:"grace_time,omitempty"`
 
-	// RootFSPath is a URI referring to the root file system for the container.
+	// Deprecated in favour of Image property
+	RootFSPath string `json:"rootfs,omitempty"`
+
+	// Image contains a URI referring to the root file system for the container.
 	// The URI scheme must either be the empty string or "docker".
 	//
 	// A URI with an empty scheme determines the path of a root file system.
@@ -91,7 +94,7 @@ type ContainerSpec struct {
 	// * "/some/path"
 	// * "docker:///onsi/grace-busybox"
 	// * "docker://index.docker.io/busybox"
-	RootFSPath string `json:"rootfs,omitempty"`
+	Image ImageRef `json:"image,omitempty"`
 
 	// * bind_mounts: a list of mount point descriptions which will result in corresponding mount
 	// points being created in the container's file system.
@@ -143,6 +146,31 @@ type ContainerSpec struct {
 
 	// Limits to be applied to the newly created container.
 	Limits Limits `json:"limits,omitempty"`
+
+	// Whitelist outbound network traffic.
+	//
+	// If the configuration directive deny_networks is not used,
+	// all networks are already whitelisted and passing any rules is effectively a no-op.
+	//
+	// Later programmatic NetOut calls take precedence over these rules, which is
+	// significant only in relation to logging.
+	NetOut []NetOutRule `json:"netout_rules,omitempty"`
+
+	// Map a port on the host to a port in the container so that traffic to the
+	// host port is forwarded to the container port.
+	//
+	// If a host port is not given, a port will be acquired from the server's port
+	// pool.
+	//
+	// If a container port is not given, the port will be the same as the
+	// host port.
+	NetIn []NetIn `json:"netin,omitempty"`
+}
+
+type ImageRef struct {
+	URI      string `json:"uri,omitempty"`
+	Username string `json:"username,omitempty"`
+	Password string `json:"password,omitempty"`
 }
 
 type Limits struct {
@@ -150,6 +178,7 @@ type Limits struct {
 	CPU       CPULimits       `json:"cpu_limits,omitempty"`
 	Disk      DiskLimits      `json:"disk_limits,omitempty"`
 	Memory    MemoryLimits    `json:"memory_limits,omitempty"`
+	Pid       PidLimits       `json:"pid_limits,omitempty"`
 }
 
 // BindMount specifies parameters for a single mount point.
@@ -180,8 +209,12 @@ type BindMount struct {
 
 type Capacity struct {
 	MemoryInBytes uint64 `json:"memory_in_bytes,omitempty"`
-	DiskInBytes   uint64 `json:"disk_in_bytes,omitempty"`
-	MaxContainers uint64 `json:"max_containers,omitempty"`
+	// Total size of the image plugin store volume.
+	// NB: It is recommended to use `SchedulableDiskInBytes` for scheduling purposes
+	DiskInBytes uint64 `json:"disk_in_bytes,omitempty"`
+	// Total scratch space (in bytes) available to containers. This is the size the image plugin store get grow up to.
+	SchedulableDiskInBytes uint64 `json:"schedulable_disk_in_bytes,omitempty"`
+	MaxContainers          uint64 `json:"max_containers,omitempty"`
 }
 
 type Properties map[string]string

@@ -179,7 +179,7 @@ func (c *connection) Run(handle string, spec garden.ProcessSpec, processIO garde
 		"application/json",
 	)
 	if err != nil {
-		return nil, fmt.Errorf("hijack: %s", err)
+		return nil, err
 	}
 
 	return c.streamProcess(handle, processIO, hijackedConn, hijackedResponseReader)

@@ -18,7 +18,7 @@
 
 **Note**: This repository should be imported as `code.cloudfoundry.org/garden`.
 
-A rich golang client and server for container creation and management with pluggable backends for [linux](https://github.com/cloudfoundry/garden-linux/), [windows](https://github.com/cloudfoundry/garden-windows) and [The Open Container Initiative Spec](https://github.com/cloudfoundry/guardian/).
+A rich golang client and server for container creation and management with pluggable backends for [The Open Container Initiative Spec](https://github.com/cloudfoundry/guardian/) and [windows](https://github.com/cloudfoundry/garden-windows).
 
 Garden is a platform-agnostic Go API for container creation and management, with pluggable backends for different platforms and runtimes.
 This package contains the canonical client, as well as a server package containing an interface to be implemented by backends.
@@ -31,7 +31,6 @@ If you want to use the Garden client to manage containers, see the [Client API](
 Backends implement support for various specific platforms.
 So far, the list of backends is as follows:
 
- - [Garden Linux](https://github.com/cloudfoundry/garden-linux/) - Linux backend
  - [Guardian](https://github.com/cloudfoundry/guardian/) - Linux backend using [runc](https://github.com/opencontainers/runc)
  - [Greenhouse](https://github.com/cloudfoundry/garden-windows) - Windows backend
 
@@ -42,10 +41,19 @@ See the [godoc documentation](http://godoc.org/code.cloudfoundry.org/garden) for
 
 ## Example use
 
-_Error checking ignored for brevity._
+Install needed packages:
+
+```
+go get code.cloudfoundry.org/garden
+go get code.cloudfoundry.org/lager
+```
 
 Import these packages:
 ```
+"bytes"
+"fmt"
+"os"
+
 "code.cloudfoundry.org/garden"
 "code.cloudfoundry.org/garden/client"
 "code.cloudfoundry.org/garden/client/connection"
@@ -58,22 +66,32 @@ gardenClient := client.New(connection.New("tcp", "127.0.0.1:7777"))
 
 Create a container:
 ```
-container, _ := gardenClient.Create(garden.ContainerSpec{})
+container, err := gardenClient.Create(garden.ContainerSpec{})
+if err != nil {
+  os.Exit(1)
+}
 ```
 
 Run a process:
 ```
 buffer := &bytes.Buffer{}
-process, _ := container.Run(garden.ProcessSpec{
-  User: "alice",
+process, err := container.Run(garden.ProcessSpec{
   Path: "echo",
   Args: []string{"hello from the container"},
 }, garden.ProcessIO{
   Stdout: buffer,
   Stderr: buffer,
 })
-exitCode := process.Wait()
-fmt.Println(buffer.String())
+if err != nil {
+  os.Exit(1)
+}
+
+exitCode, err := process.Wait()
+if err != nil {
+  os.Exit(1)
+}
+
+fmt.Printf("Exit code: %d, Process output %s", exitCode, buffer.String())
 ```
 
 # Development
@@ -82,7 +100,7 @@ fmt.Println(buffer.String())
 
 * [go](https://golang.org)
 * [git](http://git-scm.com/) (for garden and its dependencies)
-* [mercurial](http://mercurial.selenic.com/) (for some other dependencies not using git)
+* [mercurial](https://www.mercurial-scm.org/) (for some other dependencies not using git)
 
 ## Running the tests
 
