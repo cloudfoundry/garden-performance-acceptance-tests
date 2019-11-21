@@ -21,8 +21,8 @@ var _ = Describe("Create", func() {
 	})
 
 	Measure("must take less than 1.5 seconds for each container", func(b Benchmarker) {
-		createTimes := measurements.Measurements{}
 		waitGroup := sync.WaitGroup{}
+		measurementsChan := make(chan float64, 250)
 
 		for i := 0; i < 5; i++ {
 			waitGroup.Add(1)
@@ -49,13 +49,19 @@ var _ = Describe("Create", func() {
 							MetricName: ContainerCreation,
 						},
 					)
-					createTimes = append(createTimes, createTime.Seconds())
+					measurementsChan <- createTime.Seconds()
 				}
 
 			}()
 		}
 
 		waitGroup.Wait()
+		close(measurementsChan)
+
+		createTimes := measurements.Measurements{}
+		for t := range measurementsChan {
+			createTimes = append(createTimes, t)
+		}
 
 		averageCreateTime, err := createTimes.Average()
 		Expect(err).NotTo(HaveOccurred())
