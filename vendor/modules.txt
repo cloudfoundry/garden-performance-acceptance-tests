@@ -8,8 +8,8 @@ code.cloudfoundry.org/garden/transport
 code.cloudfoundry.org/lager
 # github.com/bmizerany/pat v0.0.0-20170815010413-6226ea591a40
 github.com/bmizerany/pat
-# github.com/cenkalti/backoff v0.0.0-20161020194410-b02f2bbce11d
-github.com/cenkalti/backoff
+# github.com/caio/go-tdigest v2.3.0+incompatible
+github.com/caio/go-tdigest
 # github.com/hpcloud/tail v1.0.0
 github.com/hpcloud/tail
 github.com/hpcloud/tail/ratelimiter
@@ -50,8 +50,11 @@ github.com/onsi/gomega/matchers/support/goraph/util
 github.com/onsi/gomega/types
 # github.com/tedsuo/rata v1.0.0
 github.com/tedsuo/rata
-# github.com/zorkian/go-datadog-api v0.0.0-20161114235736-01be5a905087
-github.com/zorkian/go-datadog-api
+# github.com/wavefronthq/wavefront-sdk-go v0.9.5
+github.com/wavefronthq/wavefront-sdk-go/event
+github.com/wavefronthq/wavefront-sdk-go/histogram
+github.com/wavefronthq/wavefront-sdk-go/internal
+github.com/wavefronthq/wavefront-sdk-go/senders
 # golang.org/x/net v0.0.0-20190827160401-ba9fcec4b297
 golang.org/x/net/html
 golang.org/x/net/html/atom

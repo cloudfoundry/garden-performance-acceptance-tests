@@ -18,7 +18,7 @@ import (
 	"code.cloudfoundry.org/lager"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	datadog "github.com/zorkian/go-datadog-api"
+	wavefront "github.com/wavefronthq/wavefront-sdk-go/senders"
 )
 
 var (
@@ -78,12 +78,9 @@ var _ = BeforeSuite(func() {
 })
 
 func TestGardenPerformanceAcceptanceTests(t *testing.T) {
-	dataDogAPIKey := os.Getenv("DATADOG_API_KEY")
-	dataDogAppKey := os.Getenv("DATADOG_APP_KEY")
-	metricPrefix := os.Getenv("DATADOG_METRIC_PREFIX")
-	if metricPrefix == "" {
-		metricPrefix = "gpats"
-	}
+	wavefrontSource := os.Getenv("WAVEFRONT_SOURCE")
+	wavefrontToken := os.Getenv("WAVEFRONT_TOKEN")
+	wavefrontUrl := os.Getenv("WAVEFRONT_URL")
 
 	if os.Getenv("IGNORE_PERF_EXPECTATIONS") != "" {
 		ignorePerfExpectations = true
@@ -93,9 +90,21 @@ func TestGardenPerformanceAcceptanceTests(t *testing.T) {
 	logger.RegisterSink(lager.NewWriterSink(GinkgoWriter, lager.INFO))
 
 	customReporters := []Reporter{}
-	if dataDogAPIKey != "" && dataDogAppKey != "" {
-		dataDogClient := datadog.NewClient(dataDogAPIKey, dataDogAppKey)
-		reporter := reporter.NewDataDogReporter(logger, metricPrefix, dataDogClient)
+
+	if wavefrontUrl != "" && wavefrontToken != "" {
+		directCfg := &wavefront.DirectConfiguration{
+			Server: wavefrontUrl,
+			Token:  wavefrontToken,
+		}
+
+		wfSender, err := wavefront.NewDirectSender(directCfg)
+		if err != nil {
+			t.Fatalf("wavefront-sender-creation-failed: %v", err)
+			return
+		}
+		defer wfSender.Close()
+
+		reporter := reporter.NewWavefrontReporter(logger, wavefrontSource, wfSender)
 		customReporters = append(customReporters, &reporter)
 	}
 

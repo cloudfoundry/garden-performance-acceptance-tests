@@ -17,9 +17,9 @@ outputs:
 params:
   GARDEN_ADDRESS: ""
   GARDEN_PORT: ""
-  DATADOG_API_KEY: ""
-  DATADOG_APP_KEY: ""
-  DATADOG_METRIC_PREFIX: ""
+  WAVEFRONT_TOKEN: ""
+  WAVEFRONT_URL: https://longboard.wavefront.com
+  WAVEFRONT_SOURCE: ""
   IGNORE_PERF_EXPECTATIONS: ""
   PREHEAT_SERVER: ""
 
