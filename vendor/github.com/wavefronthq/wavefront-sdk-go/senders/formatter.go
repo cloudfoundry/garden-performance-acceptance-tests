@@ -5,11 +5,12 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/wavefronthq/wavefront-sdk-go/event"
-	"github.com/wavefronthq/wavefront-sdk-go/histogram"
 	"regexp"
 	"strconv"
 	"strings"
+
+	"github.com/wavefronthq/wavefront-sdk-go/event"
+	"github.com/wavefronthq/wavefront-sdk-go/histogram"
 )
 
 const (
@@ -45,7 +46,7 @@ func MetricLine(name string, value float64, ts int64, source string, tags map[st
 	}
 
 	sb.WriteString(" source=")
-	sb.WriteString(strconv.Quote(sanitizeInternal(source)))
+	sb.WriteString(sanitizeValue(source))
 
 	for k, v := range tags {
 		if v == "" {
@@ -97,7 +98,7 @@ func HistoLine(name string, centroids []histogram.Centroid, hgs map[histogram.Gr
 	sb.WriteString(" ")
 	sb.WriteString(strconv.Quote(sanitizeInternal(name)))
 	sb.WriteString(" source=")
-	sb.WriteString(strconv.Quote(sanitizeInternal(source)))
+	sb.WriteString(sanitizeValue(source))
 
 	for k, v := range tags {
 		if v == "" {
@@ -111,10 +112,12 @@ func HistoLine(name string, centroids []histogram.Centroid, hgs map[histogram.Gr
 	sbBytes := sb.Bytes()
 
 	sbg := bytes.Buffer{}
-	for hg := range hgs {
-		sbg.WriteString(hg.String())
-		sbg.Write(sbBytes)
-		sbg.WriteString("\n")
+	for hg, on := range hgs {
+		if on {
+			sbg.WriteString(hg.String())
+			sbg.Write(sbBytes)
+			sbg.WriteString("\n")
+		}
 	}
 	return sbg.String(), nil
 }
@@ -145,7 +148,7 @@ func SpanLine(name string, startMillis, durationMillis int64, source, traceId, s
 
 	sb.WriteString(sanitizeValue(name))
 	sb.WriteString(" source=")
-	sb.WriteString(strconv.Quote(sanitizeInternal(source)))
+	sb.WriteString(sanitizeValue(source))
 	sb.WriteString(" traceId=")
 	sb.WriteString(traceId)
 	sb.WriteString(" spanId=")

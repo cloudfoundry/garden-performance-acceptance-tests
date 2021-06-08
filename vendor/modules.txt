@@ -8,7 +8,7 @@ code.cloudfoundry.org/garden/transport
 code.cloudfoundry.org/lager
 # github.com/bmizerany/pat v0.0.0-20170815010413-6226ea591a40
 github.com/bmizerany/pat
-# github.com/caio/go-tdigest v2.3.0+incompatible
+# github.com/caio/go-tdigest v3.1.0+incompatible
 github.com/caio/go-tdigest
 # github.com/hpcloud/tail v1.0.0
 github.com/hpcloud/tail
@@ -50,7 +50,7 @@ github.com/onsi/gomega/matchers/support/goraph/util
 github.com/onsi/gomega/types
 # github.com/tedsuo/rata v1.0.0
 github.com/tedsuo/rata
-# github.com/wavefronthq/wavefront-sdk-go v0.9.5
+# github.com/wavefronthq/wavefront-sdk-go v0.9.6
 github.com/wavefronthq/wavefront-sdk-go/event
 github.com/wavefronthq/wavefront-sdk-go/histogram
 github.com/wavefronthq/wavefront-sdk-go/internal
@@ -83,5 +83,5 @@ golang.org/x/text/transform
 gopkg.in/fsnotify.v1
 # gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7
 gopkg.in/tomb.v1
-# gopkg.in/yaml.v2 v2.2.2
+# gopkg.in/yaml.v2 v2.3.0
 gopkg.in/yaml.v2
