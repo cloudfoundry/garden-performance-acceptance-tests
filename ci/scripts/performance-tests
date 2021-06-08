@@ -10,6 +10,6 @@ export PATH=$PWD/bin:$PATH
 export ROOT_DIR=$PWD
 
 cd src/code.cloudfoundry.org/garden-performance-acceptance-tests
-ginkgo -mod vendor -nodes=1 "$@" | tee output.txt
+ACK_GINKGO_DEPRECATIONS=1.16.4 ginkgo -mod vendor -nodes=1 "$@" | tee output.txt
 
-tail -n 15 output.txt | grep Time | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" > $ROOT_DIR/stats/stats.txt
+tail -n 15 output.txt | grep Time | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[mGK]//g" >$ROOT_DIR/stats/stats.txt
