@@ -16,22 +16,6 @@ var (
 	errReport = errors.New("error: invalid Format or points")
 )
 
-const (
-	contentType     = "Content-Type"
-	contentEncoding = "Content-Encoding"
-	authzHeader     = "Authorization"
-	bearer          = "Bearer "
-	gzipFormat      = "gzip"
-
-	octetStream     = "application/octet-stream"
-	applicationJSON = "application/json"
-
-	reportEndpoint = "/report"
-	eventEndpoint  = "/api/v2/event"
-
-	formatKey = "f"
-)
-
 // The implementation of a Reporter that reports points directly to a Wavefront server.
 type directReporter struct {
 	serverURL string
@@ -45,7 +29,7 @@ func NewDirectReporter(server string, token string) Reporter {
 
 func (reporter directReporter) Report(format string, pointLines string) (*http.Response, error) {
 	if format == "" || pointLines == "" {
-		return nil, errReport
+		return nil, formatError
 	}
 
 	// compress
