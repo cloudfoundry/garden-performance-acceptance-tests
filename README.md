@@ -33,18 +33,13 @@ to easily spin up a lite deployment can be found
 also point the tests to a remote server.
 
 **NB**: This test suite will destroy ALL containers on the Garden server as
-part of the run. You have been warned. ````
-
-```
+part of the run. You have been warned. 
 
 ## Conditionally Expect Metrics
 
 This suite is used both to gate releases via expectations on performance but
-also to provide metrics when thresholds are succeeded.
+also to provide metrics when thresholds are succeeded. To achieve this, metrics
+related expectations are wrapped in `Conditionally()` functions, to ensure they
+only fail tests when required. To turn off metrics related expectations, set
+the `IGNORE_PERF_EXPECTATIONS` environment variable.
 
-To achieve this, metrics related expectations are wrapped in Conditionally()
-functions, to ensure they only fail tests when required.
-
-To turn off metrics related expectations, set the `IGNORE_PERF_EXPECTATIONS`
-environment variable
-```
