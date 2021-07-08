@@ -23,17 +23,20 @@ from the
 
 ## Usage
 
-```
-WAVEFRONT_TOKEN="x" WAVEFRONT_URL="x" WAVEFRONT_SOURCE="x" GARDEN_ADDRESS="127.0.0.1:7777" ginkgo
-```
+In order to run the performance test suite you need to [deploy
+garden](https://github.com/cloudfoundry/garden-runc-release/wiki/Creating-sandbox-environments-for-debugging#eden-deployments)
+and run the fololowing command (you will need the garden server ip as shown in bosh -d <deployment> vms):
 
-This assumes that there is a garden server running locally. Instructions on how
-to easily spin up a lite deployment can be found
-[here](https://github.com/cloudfoundry/garden-runc-release#running). You can
-also point the tests to a remote server.
+```
+cd $HOME/workspace/garden-ci/directors/eden
+fly -t garden-ci login -c https://garden.ci.cf-app.com/
+GARDEN_ADDRESS="<garden-server-ip>" fly -t garden-ci execute \
+  -c $HOME/workspace/garden-performance-acceptance-tests/ci/performance-tests.yml \
+  -i gpats-master=$HOME/workspace/garden-performance-acceptance-tests
+```
 
 **NB**: This test suite will destroy ALL containers on the Garden server as
-part of the run. You have been warned. 
+part of the run. You have been warned.
 
 ## Conditionally Expect Metrics
 
@@ -42,4 +45,3 @@ also to provide metrics when thresholds are succeeded. To achieve this, metrics
 related expectations are wrapped in `Conditionally()` functions, to ensure they
 only fail tests when required. To turn off metrics related expectations, set
 the `IGNORE_PERF_EXPECTATIONS` environment variable.
-
