@@ -8,7 +8,7 @@ image_resource:
 platform: linux
 
 inputs:
-- name: gpats-master
+- name: gpats-main
   path: src/code.cloudfoundry.org/garden-performance-acceptance-tests
 
 outputs:
