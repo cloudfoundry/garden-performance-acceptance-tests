@@ -1,6 +1,8 @@
 package garden_performance_acceptance_tests_test
 
 import (
+	"fmt"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -57,10 +59,12 @@ var _ = Describe("Create", func() {
 
 		waitGroup.Wait()
 		close(measurementsChan)
-
+		i := 0
 		createTimes := measurements.Measurements{}
 		for t := range measurementsChan {
+			fmt.Printf("measurement %d: %f\n", i, t)
 			createTimes = append(createTimes, t)
+			i++
 		}
 
 		averageCreateTime, err := createTimes.Average()

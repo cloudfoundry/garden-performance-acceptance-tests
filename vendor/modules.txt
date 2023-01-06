@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/garden v0.0.0-20210608104724-fa3a10d59c82
+# code.cloudfoundry.org/garden v0.0.0-20210608104724-fa3a10d59c82 => ../garden
 ## explicit
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
@@ -12,7 +12,7 @@ code.cloudfoundry.org/lager
 github.com/bmizerany/pat
 # github.com/caio/go-tdigest v3.1.0+incompatible
 github.com/caio/go-tdigest
-# github.com/fsnotify/fsnotify v1.4.9
+# github.com/fsnotify/fsnotify v1.5.1
 github.com/fsnotify/fsnotify
 # github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0
 github.com/go-task/slim-sprig
@@ -22,7 +22,7 @@ github.com/nxadm/tail/ratelimiter
 github.com/nxadm/tail/util
 github.com/nxadm/tail/watch
 github.com/nxadm/tail/winfile
-# github.com/onsi/ginkgo v1.16.4
+# github.com/onsi/ginkgo v1.16.5
 ## explicit
 github.com/onsi/ginkgo
 github.com/onsi/ginkgo/config
@@ -52,11 +52,12 @@ github.com/onsi/ginkgo/reporters/stenographer
 github.com/onsi/ginkgo/reporters/stenographer/support/go-colorable
 github.com/onsi/ginkgo/reporters/stenographer/support/go-isatty
 github.com/onsi/ginkgo/types
-# github.com/onsi/gomega v1.15.0
+# github.com/onsi/gomega v1.18.1
 ## explicit
 github.com/onsi/gomega
 github.com/onsi/gomega/format
 github.com/onsi/gomega/internal
+github.com/onsi/gomega/internal/gutil
 github.com/onsi/gomega/matchers
 github.com/onsi/gomega/matchers/support/goraph/bipartitegraph
 github.com/onsi/gomega/matchers/support/goraph/edge
@@ -72,17 +73,14 @@ github.com/wavefronthq/wavefront-sdk-go/histogram
 github.com/wavefronthq/wavefront-sdk-go/internal
 github.com/wavefronthq/wavefront-sdk-go/senders
 github.com/wavefronthq/wavefront-sdk-go/version
-# golang.org/x/net v0.0.0-20210805182204-aaa1db679c0d
-## explicit
+# golang.org/x/net v0.0.0-20220225172249-27dd8689420f
 golang.org/x/net/html
 golang.org/x/net/html/atom
 golang.org/x/net/html/charset
-# golang.org/x/sys v0.0.0-20210809222454-d867a43fc93e
-## explicit
+# golang.org/x/sys v0.0.0-20220317061510-51cd9980dadf
 golang.org/x/sys/internal/unsafeheader
 golang.org/x/sys/unix
 # golang.org/x/text v0.3.7
-## explicit
 golang.org/x/text/encoding
 golang.org/x/text/encoding/charmap
 golang.org/x/text/encoding/htmlindex
@@ -106,3 +104,4 @@ golang.org/x/tools/go/ast/inspector
 gopkg.in/tomb.v1
 # gopkg.in/yaml.v2 v2.4.0
 gopkg.in/yaml.v2
+# code.cloudfoundry.org/garden => ../garden
