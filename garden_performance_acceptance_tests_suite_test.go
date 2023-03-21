@@ -92,12 +92,9 @@ func TestGardenPerformanceAcceptanceTests(t *testing.T) {
 	customReporters := []Reporter{}
 
 	if wavefrontUrl != "" && wavefrontToken != "" {
-		directCfg := &wavefront.DirectConfiguration{
-			Server: wavefrontUrl,
-			Token:  wavefrontToken,
-		}
-
-		wfSender, err := wavefront.NewDirectSender(directCfg)
+		//https://github.com/wavefrontHQ/wavefront-sdk-go/blob/master/senders/client_factory_test.go#L88
+		//URL should have token embeded
+		wfSender, err := wavefront.NewSender(wavefrontUrl)
 		if err != nil {
 			t.Fatalf("wavefront-sender-creation-failed: %v", err)
 			return
