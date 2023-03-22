@@ -11,14 +11,12 @@ import (
 	"time"
 
 	"code.cloudfoundry.org/garden"
-	"code.cloudfoundry.org/garden-performance-acceptance-tests/reporter"
 	"code.cloudfoundry.org/garden/client"
 	"code.cloudfoundry.org/garden/client/connection"
 
 	"code.cloudfoundry.org/lager"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
-	wavefront "github.com/wavefronthq/wavefront-sdk-go/senders"
 )
 
 var (
@@ -78,10 +76,6 @@ var _ = BeforeSuite(func() {
 })
 
 func TestGardenPerformanceAcceptanceTests(t *testing.T) {
-	wavefrontSource := os.Getenv("WAVEFRONT_SOURCE")
-	wavefrontToken := os.Getenv("WAVEFRONT_TOKEN")
-	wavefrontUrl := os.Getenv("WAVEFRONT_URL")
-
 	if os.Getenv("IGNORE_PERF_EXPECTATIONS") != "" {
 		ignorePerfExpectations = true
 	}
@@ -89,24 +83,8 @@ func TestGardenPerformanceAcceptanceTests(t *testing.T) {
 	logger := lager.NewLogger("garden-performance-acceptance-tests")
 	logger.RegisterSink(lager.NewWriterSink(GinkgoWriter, lager.INFO))
 
-	customReporters := []Reporter{}
-
-	if wavefrontUrl != "" && wavefrontToken != "" {
-		//https://github.com/wavefrontHQ/wavefront-sdk-go/blob/master/senders/client_factory_test.go#L88
-		//URL should have token embeded
-		wfSender, err := wavefront.NewSender(wavefrontUrl)
-		if err != nil {
-			t.Fatalf("wavefront-sender-creation-failed: %v", err)
-			return
-		}
-		defer wfSender.Close()
-
-		reporter := reporter.NewWavefrontReporter(logger, wavefrontSource, wfSender)
-		customReporters = append(customReporters, &reporter)
-	}
-
 	RegisterFailHandler(Fail)
-	RunSpecsWithDefaultAndCustomReporters(t, "GardenPerformanceAcceptanceTests Suite", customReporters)
+	RunSpecs(t, "GardenPerformanceAcceptanceTests Suite")
 }
 
 func cleanupContainers() {

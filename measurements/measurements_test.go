@@ -2,7 +2,7 @@ package measurements_test
 
 import (
 	. "code.cloudfoundry.org/garden-performance-acceptance-tests/measurements"
-	. "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
