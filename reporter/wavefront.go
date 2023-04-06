@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"code.cloudfoundry.org/lager"
+	"code.cloudfoundry.org/lager/v3"
 	"github.com/onsi/ginkgo/v2/config"
 	"github.com/onsi/ginkgo/v2/types"
 	wavefront "github.com/wavefronthq/wavefront-sdk-go/senders"
