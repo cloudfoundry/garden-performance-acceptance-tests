@@ -3,6 +3,7 @@ package internal
 import (
 	"bytes"
 	"compress/gzip"
+	"crypto/tls"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -17,21 +18,43 @@ type reporter struct {
 	client    *http.Client
 }
 
-// Newreporter create a metrics Reporter
-func NewReporter(server string, token string) Reporter {
+// NewReporter creates a metrics Reporter
+func NewReporter(server string, token string, client *http.Client) Reporter {
 	return &reporter{
 		serverURL: server,
 		token:     token,
-		client:    &http.Client{Timeout: time.Second * 10},
+		client:    client,
 	}
 }
 
+func NewClient(timeout time.Duration, tlsConfig *tls.Config) *http.Client {
+	if tlsConfig == nil {
+		return &http.Client{Timeout: timeout}
+	}
+	transport := &http.Transport{TLSClientConfig: tlsConfig}
+	return &http.Client{Timeout: timeout, Transport: transport}
+}
+
+// Report creates and sends a POST to the reportEndpoint with the given pointLines
 func (reporter reporter) Report(format string, pointLines string) (*http.Response, error) {
 	if format == "" || pointLines == "" {
 		return nil, formatError
 	}
 
-	// compress
+	requestBody, err := linesToGzippedBytes(pointLines)
+	if err != nil {
+		return &http.Response{}, err
+	}
+
+	req, err := reporter.buildRequest(format, requestBody)
+	if err != nil {
+		return &http.Response{}, err
+	}
+
+	return reporter.execute(req)
+}
+
+func linesToGzippedBytes(pointLines string) ([]byte, error) {
 	var buf bytes.Buffer
 	zw := gzip.NewWriter(&buf)
 	_, err := zw.Write([]byte(pointLines))
@@ -42,11 +65,14 @@ func (reporter reporter) Report(format string, pointLines string) (*http.Respons
 	if err = zw.Close(); err != nil {
 		return nil, err
 	}
+	return buf.Bytes(), err
+}
 
+func (reporter reporter) buildRequest(format string, body []byte) (*http.Request, error) {
 	apiURL := reporter.serverURL + reportEndpoint
-	req, err := http.NewRequest("POST", apiURL, &buf)
+	req, err := http.NewRequest("POST", apiURL, bytes.NewBuffer(body))
 	if err != nil {
-		return &http.Response{}, err
+		return nil, err
 	}
 
 	req.Header.Set(contentType, octetStream)
@@ -58,8 +84,7 @@ func (reporter reporter) Report(format string, pointLines string) (*http.Respons
 	q := req.URL.Query()
 	q.Add(formatKey, format)
 	req.URL.RawQuery = q.Encode()
-
-	return reporter.execute(req)
+	return req, nil
 }
 
 func (reporter reporter) ReportEvent(event string) (*http.Response, error) {
