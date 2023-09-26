@@ -5,7 +5,7 @@ go 1.20
 require (
 	code.cloudfoundry.org/garden v0.0.0-20230912180837-747c18304b8a
 	code.cloudfoundry.org/lager/v3 v3.0.2
-	github.com/onsi/ginkgo/v2 v2.12.0
+	github.com/onsi/ginkgo/v2 v2.12.1
 	github.com/onsi/gomega v1.27.10
 	github.com/wavefronthq/wavefront-sdk-go v0.14.0
 )
@@ -16,7 +16,7 @@ require (
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-task/slim-sprig v0.0.0-20230315185526-52ccab3ef572 // indirect
 	github.com/google/go-cmp v0.5.9 // indirect
-	github.com/google/pprof v0.0.0-20230912144702-c363fe2c2ed8 // indirect
+	github.com/google/pprof v0.0.0-20230926050212-f7f687d19a98 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/openzipkin/zipkin-go v0.4.2 // indirect
 	github.com/tedsuo/rata v1.0.0 // indirect
