@@ -75,7 +75,7 @@ github.com/openzipkin/zipkin-go/model
 # github.com/tedsuo/rata v1.0.0
 ## explicit
 github.com/tedsuo/rata
-# github.com/wavefronthq/wavefront-sdk-go v0.14.0
+# github.com/wavefronthq/wavefront-sdk-go v0.15.0
 ## explicit; go 1.19
 github.com/wavefronthq/wavefront-sdk-go/event
 github.com/wavefronthq/wavefront-sdk-go/histogram

@@ -2,12 +2,20 @@ package senders
 
 import (
 	"crypto/tls"
-	"github.com/wavefronthq/wavefront-sdk-go/internal/auth"
+	"log"
+	"net/http"
 	"time"
+
+	"github.com/wavefronthq/wavefront-sdk-go/internal/auth"
 )
 
 // Option Wavefront client configuration options
 type Option func(*configuration)
+
+type httpClientConfiguration struct {
+	Timeout         time.Duration
+	TLSClientConfig *tls.Config
+}
 
 // APIToken configures the sender to use a Wavefront API Token for authentication
 func APIToken(apiToken string) Option {
@@ -24,13 +32,11 @@ type CSPOption func(any)
 // CSPBaseURL sets an alternative base URL for the CSP server
 func CSPBaseURL(baseURL string) CSPOption {
 	return func(authentication any) {
-		switch authentication.(type) {
+		switch a := authentication.(type) {
 		case *auth.CSPClientCredentials:
-			credentials := authentication.(*auth.CSPClientCredentials)
-			credentials.BaseURL = baseURL
+			a.BaseURL = baseURL
 		case *auth.CSPAPIToken:
-			token := authentication.(*auth.CSPAPIToken)
-			token.BaseURL = baseURL
+			a.BaseURL = baseURL
 		}
 	}
 }
@@ -38,10 +44,9 @@ func CSPBaseURL(baseURL string) CSPOption {
 // CSPOrgID sets an explicit orgID for Client Credentials authentication
 func CSPOrgID(orgID string) CSPOption {
 	return func(authentication any) {
-		switch authentication.(type) {
+		switch a := authentication.(type) {
 		case auth.CSPClientCredentials:
-			credentials := authentication.(auth.CSPClientCredentials)
-			credentials.OrgID = &orgID
+			a.OrgID = &orgID
 		}
 	}
 }
@@ -51,7 +56,7 @@ func CSPAPIToken(cspAPIToken string, options ...CSPOption) Option {
 	return func(c *configuration) {
 		cspTokenAuth := auth.CSPAPIToken{
 			Token:   cspAPIToken,
-			BaseURL: defaultCSPBaseUrl,
+			BaseURL: defaultCSPBaseURL,
 		}
 		for _, option := range options {
 			option(&cspTokenAuth)
@@ -61,12 +66,12 @@ func CSPAPIToken(cspAPIToken string, options ...CSPOption) Option {
 }
 
 // CSPClientCredentials configures the sender to use a CSP Client Credentials for authentication
-func CSPClientCredentials(clientId string, clientSecret string, options ...CSPOption) Option {
+func CSPClientCredentials(clientID string, clientSecret string, options ...CSPOption) Option {
 	return func(c *configuration) {
 		clientCredentials := &auth.CSPClientCredentials{
-			ClientID:     clientId,
+			ClientID:     clientID,
 			ClientSecret: clientSecret,
-			BaseURL:      defaultCSPBaseUrl,
+			BaseURL:      defaultCSPBaseURL,
 		}
 		for _, option := range options {
 			option(clientCredentials)
@@ -117,10 +122,22 @@ func TracesPort(port int) Option {
 	}
 }
 
-// Timeout sets the HTTP timeout (in seconds). Defaults to 10 seconds.
+// Timeout sets the HTTP timeout. Defaults to 10 seconds.
 func Timeout(timeout time.Duration) Option {
 	return func(cfg *configuration) {
-		cfg.Timeout = timeout
+		if cfg.HTTPClient != nil {
+			log.Println("using Timeout after setting the HTTPClient is not supported." +
+				"If you are using the HTTPClient Option, set Timeout on the HTTPClient directly")
+		}
+		cfg.httpClientConfiguration.Timeout = timeout
+	}
+}
+
+// HTTPClient sets the http.Client used to send data to Wavefront.
+// Overrides TLSConfigOptions and Timeout.
+func HTTPClient(client *http.Client) Option {
+	return func(cfg *configuration) {
+		cfg.HTTPClient = client
 	}
 }
 
@@ -128,7 +145,11 @@ func Timeout(timeout time.Duration) Option {
 func TLSConfigOptions(tlsCfg *tls.Config) Option {
 	tlsCfgCopy := tlsCfg.Clone()
 	return func(cfg *configuration) {
-		cfg.TLSConfig = tlsCfgCopy
+		if cfg.HTTPClient != nil {
+			log.Println("using TLSConfigOptions after setting the HTTPClient is not supported." +
+				"If you are using the HTTPClient Option, set TLSClientConfig on the HTTPClient directly")
+		}
+		cfg.httpClientConfiguration.TLSClientConfig = tlsCfgCopy
 	}
 }
 

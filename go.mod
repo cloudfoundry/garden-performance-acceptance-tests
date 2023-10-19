@@ -7,7 +7,7 @@ require (
 	code.cloudfoundry.org/lager/v3 v3.0.2
 	github.com/onsi/ginkgo/v2 v2.13.0
 	github.com/onsi/gomega v1.28.0
-	github.com/wavefronthq/wavefront-sdk-go v0.14.0
+	github.com/wavefronthq/wavefront-sdk-go v0.15.0
 )
 
 require (

@@ -3,14 +3,15 @@ package internal
 import (
 	"errors"
 	"fmt"
-	"github.com/wavefronthq/wavefront-sdk-go/internal/auth"
-	"github.com/wavefronthq/wavefront-sdk-go/internal/sdkmetrics"
 	"log"
 	"net/http"
 	"strings"
 	"sync"
 	"sync/atomic"
 	"time"
+
+	"github.com/wavefronthq/wavefront-sdk-go/internal/auth"
+	"github.com/wavefronthq/wavefront-sdk-go/internal/sdkmetrics"
 )
 
 const (
@@ -131,12 +132,19 @@ func (lh *RealLineHandler) HandleLine(line string) error {
 	}
 }
 
+func minInt(x, y int) int {
+	if x < y {
+		return x
+	}
+	return y
+}
+
 func (lh *RealLineHandler) Flush() error {
 	lh.mtx.Lock()
 	defer lh.mtx.Unlock()
 	bufLen := len(lh.buffer)
 	if bufLen > 0 {
-		size := min(bufLen, lh.BatchSize)
+		size := minInt(bufLen, lh.BatchSize)
 		lines := make([]string, size)
 		for i := 0; i < size; i++ {
 			lines[i] = <-lh.buffer
@@ -152,7 +160,7 @@ func (lh *RealLineHandler) FlushAll() error {
 	bufLen := len(lh.buffer)
 	if bufLen > 0 {
 		var imod int
-		size := min(bufLen, lh.BatchSize)
+		size := minInt(bufLen, lh.BatchSize)
 		lines := make([]string, size)
 		for i := 0; i < bufLen; i++ {
 			imod = i % size

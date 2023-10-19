@@ -3,12 +3,11 @@ package internal
 import (
 	"bytes"
 	"compress/gzip"
-	"crypto/tls"
-	"github.com/wavefronthq/wavefront-sdk-go/internal/auth"
 	"io"
 	"net/http"
 	"strings"
-	"time"
+
+	"github.com/wavefronthq/wavefront-sdk-go/internal/auth"
 )
 
 // The implementation of a Reporter that reports points directly to a Wavefront server.
@@ -25,14 +24,6 @@ func NewReporter(server string, tokenService auth.Service, client *http.Client) 
 		tokenService: tokenService,
 		client:       client,
 	}
-}
-
-func NewClient(timeout time.Duration, tlsConfig *tls.Config) *http.Client {
-	if tlsConfig == nil {
-		return &http.Client{Timeout: timeout}
-	}
-	transport := &http.Transport{TLSClientConfig: tlsConfig}
-	return &http.Client{Timeout: timeout, Transport: transport}
 }
 
 // Report creates and sends a POST to the reportEndpoint with the given pointLines
@@ -59,7 +50,7 @@ func linesToGzippedBytes(pointLines string) ([]byte, error) {
 	zw := gzip.NewWriter(&buf)
 	_, err := zw.Write([]byte(pointLines))
 	if err != nil {
-		zw.Close()
+		_ = zw.Close()
 		return nil, err
 	}
 	if err = zw.Close(); err != nil {
@@ -119,7 +110,7 @@ func (reporter reporter) execute(req *http.Request) (*http.Response, error) {
 	if err != nil {
 		return resp, err
 	}
-	io.Copy(io.Discard, resp.Body)
+	_, _ = io.Copy(io.Discard, resp.Body)
 	defer resp.Body.Close()
 	return resp, nil
 }
