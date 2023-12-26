@@ -15,7 +15,7 @@ github.com/bmizerany/pat
 # github.com/caio/go-tdigest/v4 v4.0.1
 ## explicit; go 1.18
 github.com/caio/go-tdigest/v4
-# github.com/go-logr/logr v1.3.0
+# github.com/go-logr/logr v1.4.1
 ## explicit; go 1.18
 github.com/go-logr/logr
 github.com/go-logr/logr/funcr
