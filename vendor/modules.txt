@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/garden v0.0.0-20240109143915-5f67362569bd => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20240117130100-ee732fa59395 => ../garden
 ## explicit; go 1.20
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
@@ -34,8 +34,8 @@ github.com/google/go-cmp/cmp/internal/value
 github.com/google/pprof/profile
 # github.com/nxadm/tail v1.4.8
 ## explicit; go 1.13
-# github.com/onsi/ginkgo/v2 v2.14.0
-## explicit; go 1.18
+# github.com/onsi/ginkgo/v2 v2.15.0
+## explicit; go 1.20
 github.com/onsi/ginkgo/v2
 github.com/onsi/ginkgo/v2/config
 github.com/onsi/ginkgo/v2/formatter
@@ -56,8 +56,8 @@ github.com/onsi/ginkgo/v2/internal/parallel_support
 github.com/onsi/ginkgo/v2/internal/testingtproxy
 github.com/onsi/ginkgo/v2/reporters
 github.com/onsi/ginkgo/v2/types
-# github.com/onsi/gomega v1.30.0
-## explicit; go 1.18
+# github.com/onsi/gomega v1.31.1
+## explicit; go 1.20
 github.com/onsi/gomega
 github.com/onsi/gomega/format
 github.com/onsi/gomega/internal
