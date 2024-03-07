@@ -63,7 +63,7 @@ var _ = BeforeSuite(func() {
 	gardenClient = client.New(connection.New("tcp", fmt.Sprintf("%s:%s", gardenHost, gardenPort)))
 
 	if os.Getenv("PREHEAT_SERVER") != "" {
-		var maxPreheat int = 30000
+		maxPreheat := 30000
 
 		if max, err := strconv.Atoi(os.Getenv("PREHEAT_SERVER")); err == nil {
 			maxPreheat = max
