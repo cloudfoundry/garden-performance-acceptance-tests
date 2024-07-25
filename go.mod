@@ -6,7 +6,7 @@ require (
 	code.cloudfoundry.org/garden v0.0.0-20240722202410-dfce198e52ac
 	code.cloudfoundry.org/lager/v3 v3.0.3
 	github.com/onsi/ginkgo/v2 v2.19.0
-	github.com/onsi/gomega v1.33.1
+	github.com/onsi/gomega v1.34.0
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
 )
 
