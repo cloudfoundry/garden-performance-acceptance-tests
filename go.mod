@@ -3,7 +3,7 @@ module code.cloudfoundry.org/garden-performance-acceptance-tests
 go 1.20
 
 require (
-	code.cloudfoundry.org/garden v0.0.0-20240725202647-8ec254b21a12
+	code.cloudfoundry.org/garden v0.0.0-20240726202833-9b672179f368
 	code.cloudfoundry.org/lager/v3 v3.0.3
 	github.com/onsi/ginkgo/v2 v2.19.1
 	github.com/onsi/gomega v1.34.0
@@ -16,7 +16,7 @@ require (
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
-	github.com/google/pprof v0.0.0-20240722153945-304e4f0156b8 // indirect
+	github.com/google/pprof v0.0.0-20240727154555-813a5fbdbec8 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/tedsuo/rata v1.0.0 // indirect
