@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/garden v0.0.0-20240903210206-78ca42d0b3af => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20240904210308-248eacb9f907 => ../garden
 ## explicit; go 1.22
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
@@ -89,7 +89,7 @@ github.com/wavefronthq/wavefront-sdk-go/internal/sdkmetrics
 github.com/wavefronthq/wavefront-sdk-go/internal/span
 github.com/wavefronthq/wavefront-sdk-go/senders
 github.com/wavefronthq/wavefront-sdk-go/version
-# golang.org/x/net v0.28.0
+# golang.org/x/net v0.29.0
 ## explicit; go 1.18
 golang.org/x/net/context
 golang.org/x/net/html
