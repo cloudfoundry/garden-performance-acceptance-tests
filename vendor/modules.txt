@@ -1,12 +1,12 @@
-# code.cloudfoundry.org/garden v0.0.0-20240906210158-d3ba7afc2097 => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20240909185713-e9fe567e6aa7 => ../garden
 ## explicit; go 1.22.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
 code.cloudfoundry.org/garden/client/connection
 code.cloudfoundry.org/garden/routes
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.4.0
-## explicit; go 1.22
+# code.cloudfoundry.org/lager/v3 v3.5.0
+## explicit; go 1.22.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
 # github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f
