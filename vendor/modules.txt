@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/garden v0.0.0-20240909195930-f8558dc30506 => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20240910210657-fba22f3dc9f0 => ../garden
 ## explicit; go 1.22.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
