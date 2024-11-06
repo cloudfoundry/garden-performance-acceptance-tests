@@ -5,7 +5,7 @@ go 1.22.0
 toolchain go1.22.3
 
 require (
-	code.cloudfoundry.org/garden v0.0.0-20241030020456-74829d0a2201
+	code.cloudfoundry.org/garden v0.0.0-20241106020650-8b5ced818ad7
 	code.cloudfoundry.org/lager/v3 v3.14.0
 	github.com/onsi/ginkgo/v2 v2.21.0
 	github.com/onsi/gomega v1.35.1
