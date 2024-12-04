@@ -1,11 +1,11 @@
-# code.cloudfoundry.org/garden v0.0.0-20241120020832-f199cabc97c3 => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20241203202919-e7c66d70d3e9 => ../garden
 ## explicit; go 1.22.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
 code.cloudfoundry.org/garden/client/connection
 code.cloudfoundry.org/garden/routes
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.16.0
+# code.cloudfoundry.org/lager/v3 v3.17.0
 ## explicit; go 1.22.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -29,7 +29,7 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/google/pprof v0.0.0-20241122213907-cbe949e5a41b
+# github.com/google/pprof v0.0.0-20241203143554-1e3fdc7de467
 ## explicit; go 1.22
 github.com/google/pprof/profile
 # github.com/nxadm/tail v1.4.8
