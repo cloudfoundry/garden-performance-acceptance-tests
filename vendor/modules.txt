@@ -1,11 +1,11 @@
-# code.cloudfoundry.org/garden v0.0.0-20241225021532-d08842acfc0b => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20250101021540-bcee180fbf4d => ../garden
 ## explicit; go 1.22.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
 code.cloudfoundry.org/garden/client/connection
 code.cloudfoundry.org/garden/routes
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.21.0
+# code.cloudfoundry.org/lager/v3 v3.22.0
 ## explicit; go 1.22.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -90,12 +90,12 @@ github.com/wavefronthq/wavefront-sdk-go/internal/sdkmetrics
 github.com/wavefronthq/wavefront-sdk-go/internal/span
 github.com/wavefronthq/wavefront-sdk-go/senders
 github.com/wavefronthq/wavefront-sdk-go/version
-# golang.org/x/net v0.33.0
+# golang.org/x/net v0.34.0
 ## explicit; go 1.18
 golang.org/x/net/html
 golang.org/x/net/html/atom
 golang.org/x/net/html/charset
-# golang.org/x/sys v0.28.0
+# golang.org/x/sys v0.29.0
 ## explicit; go 1.18
 golang.org/x/sys/unix
 # golang.org/x/text v0.21.0
@@ -117,7 +117,7 @@ golang.org/x/text/internal/utf8internal
 golang.org/x/text/language
 golang.org/x/text/runes
 golang.org/x/text/transform
-# golang.org/x/tools v0.28.0
+# golang.org/x/tools v0.29.0
 ## explicit; go 1.22.0
 golang.org/x/tools/cover
 golang.org/x/tools/go/ast/inspector

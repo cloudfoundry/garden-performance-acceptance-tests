@@ -5,8 +5,8 @@ go 1.22.0
 toolchain go1.22.3
 
 require (
-	code.cloudfoundry.org/garden v0.0.0-20241225021532-d08842acfc0b
-	code.cloudfoundry.org/lager/v3 v3.21.0
+	code.cloudfoundry.org/garden v0.0.0-20250101021540-bcee180fbf4d
+	code.cloudfoundry.org/lager/v3 v3.22.0
 	github.com/onsi/ginkgo/v2 v2.22.2
 	github.com/onsi/gomega v1.36.2
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
@@ -22,10 +22,10 @@ require (
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/tedsuo/rata v1.0.0 // indirect
-	golang.org/x/net v0.33.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/net v0.34.0 // indirect
+	golang.org/x/sys v0.29.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
-	golang.org/x/tools v0.28.0 // indirect
+	golang.org/x/tools v0.29.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
