@@ -5,8 +5,8 @@ go 1.23.0
 toolchain go1.23.6
 
 require (
-	code.cloudfoundry.org/garden v0.0.0-20250319022510-05a9be852e89
-	code.cloudfoundry.org/lager/v3 v3.30.0
+	code.cloudfoundry.org/garden v0.0.0-20250324181912-7b68590a2b19
+	code.cloudfoundry.org/lager/v3 v3.31.0
 	github.com/onsi/ginkgo/v2 v2.23.3
 	github.com/onsi/gomega v1.36.3
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
