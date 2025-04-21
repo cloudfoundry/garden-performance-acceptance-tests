@@ -1,4 +1,4 @@
-# code.cloudfoundry.org/garden v0.0.0-20250416022737-187e9889c592 => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20250417175132-3dcb20fef8fb => ../garden
 ## explicit; go 1.23.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
@@ -29,7 +29,7 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
-# github.com/google/pprof v0.0.0-20250417170025-a87c506f3220
+# github.com/google/pprof v0.0.0-20250418163039-24c5476c6587
 ## explicit; go 1.23
 github.com/google/pprof/profile
 # github.com/nxadm/tail v1.4.8
