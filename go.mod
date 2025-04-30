@@ -6,7 +6,7 @@ toolchain go1.23.6
 
 require (
 	code.cloudfoundry.org/garden v0.0.0-20250422223445-75bc73b534cf
-	code.cloudfoundry.org/lager/v3 v3.35.0
+	code.cloudfoundry.org/lager/v3 v3.36.0
 	github.com/onsi/ginkgo/v2 v2.23.4
 	github.com/onsi/gomega v1.37.0
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
@@ -18,7 +18,7 @@ require (
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
-	github.com/google/pprof v0.0.0-20250422154841-e1f9c1950416 // indirect
+	github.com/google/pprof v0.0.0-20250423184734-337e5dd93bb4 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	github.com/openzipkin/zipkin-go v0.4.3 // indirect
 	github.com/tedsuo/rata v1.0.0 // indirect
