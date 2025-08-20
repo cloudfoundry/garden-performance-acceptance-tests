@@ -5,16 +5,17 @@ go 1.23.0
 toolchain go1.23.6
 
 require (
-	code.cloudfoundry.org/garden v0.0.0-20250730020702-3c607f063fc6
-	code.cloudfoundry.org/lager/v3 v3.43.0
-	github.com/onsi/ginkgo/v2 v2.23.4
+	code.cloudfoundry.org/garden v0.0.0-20250813020845-616be2b2878a
+	code.cloudfoundry.org/lager/v3 v3.44.0
+	github.com/onsi/ginkgo/v2 v2.24.0
 	github.com/onsi/gomega v1.38.0
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
 )
 
 require (
+	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f // indirect
-	github.com/caio/go-tdigest/v4 v4.0.1 // indirect
+	github.com/caio/go-tdigest/v4 v4.1.0 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
