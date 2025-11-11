@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	code.cloudfoundry.org/garden v0.0.0-20251110153920-e22a5d6234cc
-	code.cloudfoundry.org/lager/v3 v3.53.0
+	code.cloudfoundry.org/lager/v3 v3.54.0
 	github.com/onsi/ginkgo/v2 v2.27.2
 	github.com/onsi/gomega v1.38.2
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
