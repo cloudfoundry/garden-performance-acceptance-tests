@@ -3,7 +3,7 @@ module code.cloudfoundry.org/garden-performance-acceptance-tests
 go 1.25.0
 
 require (
-	code.cloudfoundry.org/garden v0.0.0-20260311024225-613a89da1275
+	code.cloudfoundry.org/garden v0.0.0-20260318024418-0ddea73e969e
 	code.cloudfoundry.org/lager/v3 v3.64.0
 	github.com/onsi/ginkgo/v2 v2.28.1
 	github.com/onsi/gomega v1.39.1
