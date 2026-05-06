@@ -3,15 +3,15 @@ module code.cloudfoundry.org/garden-performance-acceptance-tests
 go 1.25.0
 
 require (
-	code.cloudfoundry.org/garden v0.0.0-20260415024759-5d3f072af7f8
-	code.cloudfoundry.org/lager/v3 v3.67.0
+	code.cloudfoundry.org/garden v0.0.0-20260429025054-3f9ac7a76d56
+	code.cloudfoundry.org/lager/v3 v3.68.0
 	github.com/onsi/ginkgo/v2 v2.28.3
 	github.com/onsi/gomega v1.40.0
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
 )
 
 require (
-	github.com/Masterminds/semver/v3 v3.4.0 // indirect
+	github.com/Masterminds/semver/v3 v3.5.0 // indirect
 	github.com/bmizerany/pat v0.0.0-20210406213842-e4b6760bdd6f // indirect
 	github.com/caio/go-tdigest/v4 v4.1.0 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
