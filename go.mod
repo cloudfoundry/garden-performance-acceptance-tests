@@ -5,8 +5,8 @@ go 1.25.0
 require (
 	code.cloudfoundry.org/garden v0.0.0-20260612142927-e02c02da0c18
 	code.cloudfoundry.org/lager/v3 v3.73.0
-	github.com/onsi/ginkgo/v2 v2.30.0
-	github.com/onsi/gomega v1.41.0
+	github.com/onsi/ginkgo/v2 v2.31.0
+	github.com/onsi/gomega v1.42.0
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
 )
 
