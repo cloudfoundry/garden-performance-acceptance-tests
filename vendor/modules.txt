@@ -1,11 +1,11 @@
-# code.cloudfoundry.org/garden v0.0.0-20260612142927-e02c02da0c18 => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20260615182558-dd88c014d8c3 => ../garden
 ## explicit; go 1.25.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
 code.cloudfoundry.org/garden/client/connection
 code.cloudfoundry.org/garden/routes
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.73.0
+# code.cloudfoundry.org/lager/v3 v3.74.0
 ## explicit; go 1.25.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
