@@ -3,10 +3,10 @@ module code.cloudfoundry.org/garden-performance-acceptance-tests
 go 1.25.0
 
 require (
-	code.cloudfoundry.org/garden v0.0.0-20260615182558-dd88c014d8c3
-	code.cloudfoundry.org/lager/v3 v3.74.0
-	github.com/onsi/ginkgo/v2 v2.31.0
-	github.com/onsi/gomega v1.42.0
+	code.cloudfoundry.org/garden v0.0.0-20260617020226-a9e754564bb5
+	code.cloudfoundry.org/lager/v3 v3.75.0
+	github.com/onsi/ginkgo/v2 v2.32.0
+	github.com/onsi/gomega v1.42.1
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
 )
 
