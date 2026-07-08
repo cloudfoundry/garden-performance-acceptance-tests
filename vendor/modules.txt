@@ -1,11 +1,11 @@
-# code.cloudfoundry.org/garden v0.0.0-20260624020405-8f632509f05f => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20260701020453-6a4fe469372c => ../garden
 ## explicit; go 1.25.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
 code.cloudfoundry.org/garden/client/connection
 code.cloudfoundry.org/garden/routes
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.76.0
+# code.cloudfoundry.org/lager/v3 v3.77.0
 ## explicit; go 1.25.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -112,7 +112,7 @@ golang.org/x/sync/errgroup
 # golang.org/x/sys v0.46.0
 ## explicit; go 1.25.0
 golang.org/x/sys/unix
-# golang.org/x/text v0.38.0
+# golang.org/x/text v0.39.0
 ## explicit; go 1.25.0
 golang.org/x/text/encoding
 golang.org/x/text/encoding/charmap

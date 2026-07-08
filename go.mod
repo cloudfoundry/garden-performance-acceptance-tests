@@ -3,8 +3,8 @@ module code.cloudfoundry.org/garden-performance-acceptance-tests
 go 1.25.0
 
 require (
-	code.cloudfoundry.org/garden v0.0.0-20260624020405-8f632509f05f
-	code.cloudfoundry.org/lager/v3 v3.76.0
+	code.cloudfoundry.org/garden v0.0.0-20260701020453-6a4fe469372c
+	code.cloudfoundry.org/lager/v3 v3.77.0
 	github.com/onsi/ginkgo/v2 v2.32.0
 	github.com/onsi/gomega v1.42.1
 	github.com/wavefronthq/wavefront-sdk-go v0.15.0
@@ -26,7 +26,7 @@ require (
 	golang.org/x/net v0.56.0 // indirect
 	golang.org/x/sync v0.21.0 // indirect
 	golang.org/x/sys v0.46.0 // indirect
-	golang.org/x/text v0.38.0 // indirect
+	golang.org/x/text v0.39.0 // indirect
 	golang.org/x/tools v0.47.0 // indirect
 )
 
