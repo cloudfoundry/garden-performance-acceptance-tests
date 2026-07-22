@@ -1,11 +1,11 @@
-# code.cloudfoundry.org/garden v0.0.0-20260708020641-3ee0e5230510 => ../garden
+# code.cloudfoundry.org/garden v0.0.0-20260715020742-79c9837591af => ../garden
 ## explicit; go 1.25.0
 code.cloudfoundry.org/garden
 code.cloudfoundry.org/garden/client
 code.cloudfoundry.org/garden/client/connection
 code.cloudfoundry.org/garden/routes
 code.cloudfoundry.org/garden/transport
-# code.cloudfoundry.org/lager/v3 v3.78.0
+# code.cloudfoundry.org/lager/v3 v3.79.0
 ## explicit; go 1.25.0
 code.cloudfoundry.org/lager/v3
 code.cloudfoundry.org/lager/v3/internal/truncate
@@ -18,7 +18,7 @@ github.com/bmizerany/pat
 # github.com/caio/go-tdigest/v4 v4.1.0
 ## explicit; go 1.18
 github.com/caio/go-tdigest/v4
-# github.com/go-logr/logr v1.4.3
+# github.com/go-logr/logr v1.4.4
 ## explicit; go 1.18
 github.com/go-logr/logr
 github.com/go-logr/logr/funcr
